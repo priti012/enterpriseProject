@@ -1,0 +1,43 @@
+<h3>Employees</h3>
+<div >
+  <label>Employee name:
+    <input #employeeName [(ngModel)]="nameText"/>
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button   routerLink="/employees/add">
+    add
+  </button>
+  <button (click)="search(employeeName.value)" (blur) ='getEmployees()'>
+    search
+  </button>
+
+
+<table >
+	<thead>
+	<tr>
+		<th>Id</th>
+		<th>Name</th>
+    <th>Phone</th>
+    <th>City</th>
+    <th>Address 1</th>
+    <th>Address 2</th>
+    <th>Postal Code</th>
+    <th>Edit</th>
+	</tr>
+	</thead>
+	<tbody>
+
+	<tr *ngFor = 'let employee of apiServiceService.employees'>
+		<td>{{employee.id}}</td>
+    <td>{{employee.name}}</td>
+    <td>{{employee.phone}}</td>
+    <td>{{employee.address.city}}</td>
+    <td>{{employee.address.addressline1}}</td>
+    <td>{{employee.address.addressline2}}</td>
+    <td>{{employee.address.postalcode}}</td>
+    <td  routerLink="/employees/:{{employee.id}}/edit" >Edit</td>
+	</tr>
+	</tbody>
+</table>
+<router-outlet></router-outlet>
+</div>

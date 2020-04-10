@@ -1,0 +1,25 @@
+<p>add-employee works!</p>
+<form  #userForm="ngForm" name="myForm" action="/action_page.php" method="get">
+  <label for="name"> name:</label>
+  <input type="text" id="name" name="name" [(ngModel)]="addEmployee.name" required minlength="4" #name="ngModel"><br><br>
+  <div *ngIf="name?.errors?.required">
+    Name is required.
+  </div>
+  <div *ngIf="name?.errors?.minlength">
+    Name must be at least 4 characters long.
+  </div>
+  <label for="Phone">Phone:</label>
+  <input type="text" id="phone" name="phone" [(ngModel)]="addEmployee.phone" required #mobNumber="ngModel" ><br><br>
+    <div *ngIf="mobNumber?.errors?.pattern">
+      Mobile number not valid.
+    </div>
+  <label for="name"> city:</label>
+  <input type="text" id="city" name="city" [(ngModel)]="addEmployee.address.city"><br><br>
+  <label for="Phone">address 1:</label>
+  <input type="text" id="address1" name="address1" [(ngModel)]="addEmployee.address.addressline1"><br><br>
+  <label for="name"> address 2:</label>
+  <input type="text" id="address2" name="address2" [(ngModel)]="addEmployee.address.addressline2"><br><br>
+  <label for="Phone">postalcode:</label>
+  <input type="text" id="postalcode" name="postalcode" [(ngModel)]="addEmployee.address.postalcode"><br><br>
+  <input type="button" type="submit" (click)="formSubmit()" value="Send form data!" id="form-submit" routerLink="/employees">
+</form>
