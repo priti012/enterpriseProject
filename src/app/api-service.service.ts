@@ -20,7 +20,7 @@ export class ApiServiceService {
   employees: Employee[];
   constructor(private http: HttpClient) {
   }
-  getEmployees(): Observable<Employee[]> {
+  getEmployeesContact(): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.employeesUrl)
       .pipe(
         catchError((error) => {
@@ -30,7 +30,7 @@ export class ApiServiceService {
       );
   }
 
-  searchEmployees(term: string): Observable<Employee[]> {
+  searchEmployeesContact(term: string): Observable<Employee[]> {
     term = term.trim();
     let searchedEmployee;
     const options = term ?
@@ -44,7 +44,7 @@ export class ApiServiceService {
     );
     return searchedEmployee;
   }
-  addEmployee(employee: Employee): Observable<Employee> {
+  addEmployeeContact(employee: Employee): Observable<Employee> {
     return this.http.post<Employee>(this.employeesUrl, employee, httpOptions)
       .pipe(
         catchError((error) => {
@@ -53,7 +53,7 @@ export class ApiServiceService {
         })
       );
   }
-  updateEmployee (employee: Employee): Observable<Employee> {
+  updateEmployeeContact(employee: Employee): Observable<Employee> {
     httpOptions.headers =
       httpOptions.headers.set('Authorization', 'my-new-auth-token');
 
@@ -61,6 +61,17 @@ export class ApiServiceService {
       .pipe(
         catchError((error) => {
           console.error(error);
+          return throwError(error.message);
+        })
+      );
+  }
+
+   /** DELETE: delete the hero from the server */
+   deleteEmployeeContact(id: number): Observable<{}> {
+    const url = `${this.employeesUrl}/${id}`; // DELETE api/heroes/42
+    return this.http.delete(url, httpOptions)
+      .pipe(
+        catchError((error) => {
           return throwError(error.message);
         })
       );

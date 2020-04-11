@@ -12,6 +12,7 @@ export class EditEmployeeComponent implements OnInit {
   id: string;
   addEmployee: Employee;
   _id;
+  statusList = ['Active', 'Inactive'];
   constructor(private apiServiceService: ApiServiceService, public route: ActivatedRoute) { }
   employees: Employee[];
   ngOnInit() {
@@ -31,7 +32,7 @@ export class EditEmployeeComponent implements OnInit {
   update() {
     if (this.addEmployee) {
       this.apiServiceService
-        .updateEmployee(this.addEmployee)
+        .updateEmployeeContact(this.addEmployee)
         .subscribe(employee => {
         const ix = employee ? this.apiServiceService.employees.findIndex(h => h.id === employee.id) : -1;
         if (ix > -1) {

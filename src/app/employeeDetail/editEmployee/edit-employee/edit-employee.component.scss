@@ -1,0 +1,19 @@
+.formClass {
+  text-align: center;
+  .selectStatus {
+    width: 13%;
+    height: 20px;
+  }
+  .labelClass {
+    padding: 15px;
+  }
+  .submitClass {
+    transform: translate(50px, 50px);
+  }
+  .requireClass {
+    color: red;
+    padding: 4px;
+    margin-top: -15px;
+    padding-left: 52px;
+  }
+}
