@@ -1,7 +1,12 @@
 export interface Employee {
   id?: number,
-  fname?: string,
+  name?: string,
   phone?: number,
-  lname?:string,
-  status?: string,
+  address?:address
+}
+export interface address {
+  city?: string,
+  addressline1?:string,
+  addressline2?:string,
+  postalcode?:string
 }

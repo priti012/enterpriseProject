@@ -14,15 +14,17 @@ export class AddEmployeeComponent implements OnInit {
   constructor(private apiServiceService: ApiServiceService) { }
   addEmployee: Employee = {
     id: 1,
-    fname: '',
-    phone: undefined,
-    lname: '',
-    status: ''
+    name: '',
+    phone: 1111111,
+    address: {
+      city: '',
+      addressline1: '',
+      addressline2: '',
+      postalcode: ''
+    }
   };
-  statusList = ['Active', 'Inactive'];
   employee: Employee[];
   ngOnInit() {
-    console.log('statusList '+ this.statusList);
     if(this.apiServiceService.employees){
     this.idNumber = this.apiServiceService.employees.length +1;
     this.addEmployee.id = this.idNumber;
@@ -31,20 +33,22 @@ export class AddEmployeeComponent implements OnInit {
   add(): void {
     let name;
     if (this.addEmployee ) {
-      this.addEmployee.fname = this.addEmployee.fname.trim();
-      this.addEmployee.lname = this.addEmployee.lname.trim();
-      this.addEmployee.status = this.addEmployee.status.trim();
+      this.addEmployee.name = this.addEmployee.name.trim();
+      this.addEmployee.address.city = this.addEmployee.address.city.trim();
+      this.addEmployee.address.addressline1 = this.addEmployee.address.addressline1.trim();
+      this.addEmployee.address.addressline2 = this.addEmployee.address.addressline2.trim();
+      this.addEmployee.address.postalcode = this.addEmployee.address.postalcode.trim();
       this.addEmployee.phone = this.addEmployee.phone;
-      name = this.addEmployee.fname;
+      name = this.addEmployee.name;
       let employee = this.addEmployee;
-      if (!this.addEmployee.fname || !this.addEmployee.phone.toString().match(/[0-9]/)) {
+      if (!this.addEmployee.name || !this.addEmployee.phone.toString().match(/[0-9]/)) {
         return;
       }
-      const newEmployee: Employee = employee ;
+      const newEmployee: Employee = {employee} as Employee;
       this.apiServiceService
-      .addEmployeeContact(newEmployee)
+      .addEmployee(newEmployee)
       .subscribe((employees) => {
-        this.apiServiceService.employees.push(employees);
+        this.apiServiceService.employees.push(employees.employee);
       });
     }
 
@@ -52,4 +56,12 @@ export class AddEmployeeComponent implements OnInit {
   formSubmit() {
     this.add();
   }
+  onFormSubmit(form: NgForm) {
+    this.isValidFormSubmitted = false;
+    if (form.invalid) {
+       return;
+    }
+    this.isValidFormSubmitted = true;
+    form.resetForm();
+ }
 }
